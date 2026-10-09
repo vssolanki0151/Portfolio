@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal Solanki | Web Developer</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Portfolio of Vishal Solanki, a Computer Science student and skilled Web Developer specializing in building modern websites and portfolios.">
+    <meta name="keywords" content="Vishal Solanki, Web Developer, Computer Science, Portfolio, Website Builder, Freelance">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6', // blue-500
+                        secondary: '#1e40af', // blue-800
+                        dark: '#0f172a', // slate-900
+                        light: '#f8fafc', // slate-50
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (Lightweight, beautiful icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom CSS for specific interactive elements -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 5px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animated background blob */
+        .bg-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        /* Typing effect cursor */
+        .cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Section reveal animation class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-light text-slate-800 dark:bg-dark dark:text-slate-200 transition-colors duration-300 relative overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- Decorative Background Blobs -->
+    <div class="bg-blob bg-blue-300 dark:bg-blue-900 w-96 h-96 rounded-full top-0 left-0 mix-blend-multiply dark:mix-blend-screen animate-blob"></div>
+    <div class="bg-blob bg-purple-300 dark:bg-purple-900 w-96 h-96 rounded-full top-40 right-0 mix-blend-multiply dark:mix-blend-screen animate-blob animation-delay-2000"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-primary">&lt;</span>
+                VS
+                <span class="text-primary">/&gt;</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider">About</a>
+                <a href="#services" class="hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider">Services</a>
+                <a href="#portfolio" class="hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider">Work</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full bg-primary text-white hover:bg-secondary transition-all shadow-lg shadow-blue-500/30 font-medium text-sm uppercase tracking-wider">Hire Me</a>
+                
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Dark Mode">
+                    <i class="ph ph-moon text-xl dark:hidden"></i>
+                    <i class="ph ph-sun text-xl hidden dark:block text-yellow-400"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center gap-4">
+                <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Dark Mode">
+                    <i class="ph ph-moon text-xl dark:hidden"></i>
+                    <i class="ph ph-sun text-xl hidden dark:block text-yellow-400"></i>
+                </button>
+                <button id="mobile-menu-btn" class="text-2xl focus:outline-none">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 w-full glass border-t border-slate-200 dark:border-slate-800 flex-col py-4 px-6 shadow-xl">
+            <a href="#about" class="py-3 border-b border-slate-200 dark:border-slate-800 hover:text-primary mobile-link">About</a>
+            <a href="#services" class="py-3 border-b border-slate-200 dark:border-slate-800 hover:text-primary mobile-link">Services</a>
+            <a href="#portfolio" class="py-3 border-b border-slate-200 dark:border-slate-800 hover:text-primary mobile-link">Work</a>
+            <a href="#contact" class="py-3 font-semibold text-primary mobile-link">Hire Me</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 pb-12 px-6 relative">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="order-2 md:order-1 space-y-6 z-10 animate-fade-in-up">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-primary font-medium text-sm mb-2 border border-blue-200 dark:border-blue-800">
+                    👋 Available for freelance work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                    Hi, I'm <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Vishal Solanki</span>
+                </h1>
+                
+                <h2 class="text-2xl md:text-3xl font-medium text-slate-600 dark:text-slate-400 h-10">
+                    I build <span id="typewriter" class="text-primary font-mono cursor"></span>
+                </h2>
+                
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                    I'm a Computer Science Engineering student and a passionate Web Developer. I specialize in turning ideas into functional, beautiful, and responsive digital experiences.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#contact" class="px-8 py-4 rounded-full bg-primary text-white hover:bg-secondary hover:-translate-y-1 transition-all shadow-lg shadow-blue-500/40 font-semibold flex items-center gap-2">
+                        Let's Talk <i class="ph ph-arrow-right font-bold"></i>
+                    </a>
+                    <a href="#portfolio" class="px-8 py-4 rounded-full border-2 border-slate-300 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary transition-all font-semibold">
+                        View My Work
+                    </a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="flex gap-5 pt-8 items-center">
+                    <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">Connect:</span>
+                    <a href="#" class="text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors text-2xl" aria-label="GitHub"><i class="ph ph-github-logo"></i></a>
+                    <a href="#" class="text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors text-2xl" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+                    <a href="#" class="text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors text-2xl" aria-label="Twitter"><i class="ph ph-twitter-logo"></i></a>
+                </div>
+            </div>
+            
+            <!-- Image/Visual -->
+            <div class="order-1 md:order-2 flex justify-center md:justify-end relative z-10 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <!-- Decorative background element -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-purple-500 rounded-full blur-2xl opacity-20 dark:opacity-40 animate-pulse"></div>
+                    
+                    <!-- Main image container (Placeholder for actual photo) -->
+                    <div class="absolute inset-0 bg-slate-200 dark:bg-slate-800 rounded-full border-4 border-white dark:border-slate-700 overflow-hidden shadow-2xl flex items-center justify-center group">
+                        <!-- Replace src with your actual image URL. Using a placeholder for now -->
+                        <img src="https://placehold.co/400x400/3b82f6/ffffff?text=VS" alt="Vishal Solanki" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        
+                        <!-- Fallback code illustration if image is missing -->
+                        <div class="absolute inset-0 bg-slate-900/80 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <pre class="text-green-400 font-mono text-xs text-left p-4">
+const developer = {
+  name: "Vishal",
+  role: "CSE Student",
+  skills: ["HTML", "CSS", "JS", "React"],
+  passion: "Building Web"
+};
+                            </pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating badges -->
+                    <div class="absolute -bottom-4 -left-4 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 dark:border-slate-700 animate-bounce" style="animation-duration: 3s;">
+                        <div class="bg-orange-100 text-orange-500 p-2 rounded-xl">
+                            <i class="ph-fill ph-code text-xl"></i>
+                        </div>
+                        <div class="text-sm font-bold">Web Dev</div>
+                    </div>
+                    
+                    <div class="absolute top-10 -right-8 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 dark:border-slate-700 animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                        <div class="bg-blue-100 text-blue-500 p-2 rounded-xl">
+                            <i class="ph-fill ph-student text-xl"></i>
+                        </div>
+                        <div class="text-sm font-bold">CSE Student</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-50 dark:bg-slate-900/50">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-primary font-semibold tracking-wider uppercase text-sm">Who I Am</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">About Me</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="space-y-6 text-lg text-slate-600 dark:text-slate-400">
+                    <p>
+                        Hello! I'm <strong class="text-slate-900 dark:text-white">Vishal Solanki</strong>, currently pursuing my degree in Computer Science and Engineering. My journey into technology started with a deep curiosity about how the web works, which quickly evolved into a passion for building it.
+                    </p>
+                    <p>
+                        As a student, I am constantly learning and adapting to new technologies. However, my practical experience as a freelance Web Developer sets me apart. I don't just write code; I solve problems and create digital platforms that help individuals and businesses establish a strong online presence.
+                    </p>
+                    <p>
+                        Whether you need a sleek personal portfolio to showcase your work, or a robust website for your business, I have the skills and dedication to bring your vision to life.
+                    </p>
+                    
+                    <div class="pt-6 grid grid-cols-2 gap-6">
+                        <div class="border-l-4 border-primary pl-4">
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">5+</h4>
+                            <p class="text-sm">Projects Completed</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">100%</h4>
+                            <p class="text-sm">Client Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skills -->
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
+                    <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">My Tech Stack</h3>
+                    
+                    <div class="space-y-5">
+                        <!-- Skill Item -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">HTML5 & CSS3 / Tailwind</span>
+                                <span class="text-primary font-mono">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Item -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">JavaScript (ES6+)</span>
+                                <span class="text-primary font-mono">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Item -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">React.js</span>
+                                <span class="text-primary font-mono">75%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Item -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">C++ / Core CS Concepts</span>
+                                <span class="text-primary font-mono">80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-sm rounded-full">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-sm rounded-full">Responsive Design</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-sm rounded-full">UI/UX Basics</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-sm rounded-full">Vercel Deployment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-primary font-semibold tracking-wider uppercase text-sm">What I Do</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Services I Offer</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+                <p class="mt-6 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    I help students, professionals, and small businesses establish their digital footprint with custom, high-quality websites.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 reveal">
+                <!-- Service 1 -->
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-browser"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Portfolio Websites</h3>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        Stand out from the crowd. I build stunning, personalized portfolios for students, designers, and developers to showcase their resumes and projects effectively.
+                    </p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-16 h-16 bg-purple-50 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center text-purple-500 text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-storefront"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Business Websites</h3>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        Establish credibility online. I create responsive, fast-loading landing pages and multi-page websites for local businesses and startups.
+                    </p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-16 h-16 bg-green-50 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-green-500 text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-device-mobile"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Responsive Design</h3>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        Every website I build is guaranteed to look perfect and function flawlessly across all devices—desktops, tablets, and smartphones.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center reveal">
+                <div class="inline-flex items-center gap-4 bg-primary/10 dark:bg-primary/20 p-4 rounded-2xl border border-primary/20">
+                    <i class="ph-fill ph-lightbulb text-3xl text-primary"></i>
+                    <div class="text-left">
+                        <h4 class="font-bold text-slate-900 dark:text-white">Need a website?</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">I offer student-friendly pricing and rapid delivery.</p>
+                    </div>
+                    <a href="#contact" class="ml-4 px-6 py-2 bg-primary text-white rounded-xl font-medium hover:bg-secondary transition-colors">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio/Work Section -->
+    <section id="portfolio" class="py-24 bg-slate-50 dark:bg-slate-900/50">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-primary font-semibold tracking-wider uppercase text-sm">My Work</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Featured Projects</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                
+                <!-- Project 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700 group cursor-pointer">
+                    <div class="relative h-48 overflow-hidden bg-slate-200 dark:bg-slate-700">
+                        <!-- Mockup Image Placeholder -->
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-400">
+                           <i class="ph ph-image text-5xl"></i>
+                        </div>
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                                <i class="ph-bold ph-link text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 rounded-md">HTML/CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-md">JS</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Modern Personal Portfolio</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                            A sleek, dark-themed portfolio built for a graphic designer client to showcase their artwork and resume.
+                        </p>
+                        <a href="#" class="text-primary font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                            View Project <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700 group cursor-pointer">
+                    <div class="relative h-48 overflow-hidden bg-slate-200 dark:bg-slate-700">
+                        <!-- Mockup Image Placeholder -->
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-400">
+                           <i class="ph ph-image text-5xl"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                                <i class="ph-bold ph-link text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-semibold px-2 py-1 bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400 rounded-md">React</span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 rounded-md">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">E-commerce Landing Page</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                            A high-converting landing page developed for a local startup selling custom merchandise.
+                        </p>
+                        <a href="#" class="text-primary font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                            View Project <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700 group cursor-pointer">
+                    <div class="relative h-48 overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center p-6 text-center">
+                        <div>
+                            <i class="ph ph-rocket-launch text-4xl text-primary mb-2"></i>
+                            <h4 class="font-bold">Your Project Here</h4>
+                            <p class="text-xs text-slate-500 mt-1">Let's build something amazing together.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col justify-center h-[180px]">
+                        <h3 class="text-xl font-bold mb-2 text-center">Hire Me Today</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 text-center">
+                            Ready to get your own custom website?
+                        </p>
+                        <a href="#contact" class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-medium text-sm text-center hover:scale-[1.02] transition-transform">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm">Get In Touch</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2">Let's Work Together</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-slate-600 dark:text-slate-400">
+                        Whether you want to build a portfolio, a business site, or just want to say hi, my inbox is always open.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-5 gap-12 bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-slate-100 dark:border-slate-700 reveal">
+                    
+                    <!-- Contact Info -->
+                    <div class="md:col-span-2 space-y-8">
+                        <h3 class="text-2xl font-bold mb-6">Contact Info</h3>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <i class="ph-fill ph-envelope-simple text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white">Email</h4>
+                                <a href="mailto:vishal@example.com" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">vishal@example.com</a>
+                                <p class="text-xs text-slate-500 mt-1">Send me an email anytime!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-primary shrink-0">
+                                <i class="ph-fill ph-map-pin text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white">Location</h4>
+                                <p class="text-slate-600 dark:text-slate-400">India</p>
+                                <p class="text-xs text-slate-500 mt-1">Available for remote work worldwide.</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-8 border-t border-slate-100 dark:border-slate-700">
+                            <h4 class="font-bold text-slate-900 dark:text-white mb-4">Follow Me</h4>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"><i class="ph-fill ph-github-logo"></i></a>
+                                <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"><i class="ph-fill ph-linkedin-logo"></i></a>
+                                <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"><i class="ph-fill ph-instagram-logo"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <div class="md:col-span-3">
+                        <form id="contactForm" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+                                    <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium mb-2">Your Email</label>
+                                    <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+                                <select id="subject" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all appearance-none">
+                                    <option value="portfolio">I need a Portfolio Website</option>
+                                    <option value="business">I need a Business Website</option>
+                                    <option value="freelance">Freelance Opportunity</option>
+                                    <option value="other">Other Inquiry</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                                <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-4 rounded-xl bg-primary text-white font-bold hover:bg-secondary hover:-translate-y-1 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2">
+                                Send Message <i class="ph-bold ph-paper-plane-tilt"></i>
+                            </button>
+                            
+                            <!-- Success Message Placeholder -->
+                            <div id="formSuccess" class="hidden text-green-500 text-center text-sm font-medium p-3 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                Message sent successfully! I'll get back to you soon.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <a href="#" class="text-2xl font-bold tracking-tighter flex items-center justify-center md:justify-start gap-2 mb-2">
+                    <span class="text-primary">&lt;</span>
+                    VS
+                    <span class="text-primary">/&gt;</span>
+                </a>
+                <p class="text-slate-500 text-sm">© <span id="year"></span> Vishal Solanki. All rights reserved.</p>
+            </div>
+            
+            <div class="flex gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
+                <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#portfolio" class="hover:text-primary transition-colors">Work</a>
+            </div>
+            
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all shadow-md" aria-label="Back to top">
+                <i class="ph-bold ph-caret-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Dark Mode Logic ---
+        const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+        const htmlElement = document.documentElement;
+        
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        // Toggle theme
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                htmlElement.classList.toggle('dark');
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
+            });
+        });
+
+        // --- Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+            } else {
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+            });
+        });
+
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('py-4', 'py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('py-2', 'py-4');
+            }
+        });
+
+        // --- Typewriter Effect ---
+        const words = ["Websites.", "Portfolios.", "Experiences.", "Digital Solutions."];
+        let i = 0;
+        let timer;
+        const typewriterEl = document.getElementById('typewriter');
+        
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    typewriterEl.innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000); // wait before deleting
+                    return false;
+                };
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    typewriterEl.innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) {
+                        i++;
+                    } else {
+                        i = 0; // loop back to start
+                    };
+                    typingEffect();
+                    return false;
+                };
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+        
+        // Start typing effect on load
+        setTimeout(typingEffect, 1000);
+
+        // --- Scroll Reveal Animation ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // when to reveal
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // --- Mock Form Submission ---
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            // Loading state
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Sending...';
+            btn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                this.reset();
+                
+                const successMsg = document.getElementById('formSuccess');
+                successMsg.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+
+    </script>
+</body>
+</html>
